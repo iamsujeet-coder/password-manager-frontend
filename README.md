@@ -1,12 +1,26 @@
-# React + Vite
+# password-manager-frontend
+A modern and responsive React + Vite frontend for a secure Password Manager app. Built with Tailwind CSS and integrated with a Node.js backend and MongoDB.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔐 Password Manager Frontend (React + Vite)
 
-Currently, two official plugins are available:
+This is the frontend part of a full-stack Password Manager application. Developed using React and Vite for lightning-fast performance and modular architecture.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 Features:
+- Fully responsive UI using Tailwind CSS
+- Add, view, and delete saved passwords
+- Integrated with secure backend APIs via Axios
+- Toast notifications for better UX (React Toastify)
+- Environment-based API integration (via VITE_API_URL)
+- Deployed on Vercel for production use
 
-## Expanding the ESLint configuration
+🛠 Tech Stack:
+- React 19 (Vite)
+- Tailwind CSS
+- Axios
+- React Toastify
+- Vercel (deployment)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🔗 Live Demo: https://your-vercel-app.vercel.app  
+🔗 Backend Repo: https://github.com/your-username/password-manager-backend
+
+🧠 Created by: Sujeet Kumar
