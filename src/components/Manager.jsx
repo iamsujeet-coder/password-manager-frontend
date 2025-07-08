@@ -1,8 +1,9 @@
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { v4 as uuidv4 } from 'uuid';
+import { getPasswords,addPassword,deletePassword as apiDeletePassword } from '../api';
 
 function Manager() {
   const eyeRef = useRef();
@@ -10,17 +11,17 @@ function Manager() {
   const [passwordArray, setpasswordArray] = useState([])
   const passwordRef = useRef()
 
-  const getPasswords = async () => {
-    const req = await fetch("http://localhost:3000/")
-    const passwords = await req.json()
-    // console.log(passwords)
-    setpasswordArray(passwords)
-  }
 
 
-  useEffect(() => {
-    getPasswords();
-  }, [])
+  useEffect(()=>{
+   const fetchData=async()=>{
+    const passwords=await getPasswords();
+    setpasswordArray(passwords);
+   }
+   fetchData();
+  },[])
+
+
 
 
   const showPassword = () => {
@@ -35,54 +36,20 @@ function Manager() {
     }
   }
 
-  //   const savePassword = async() => {
-  //     if (form.site.length > 3 && form.userName.length > 3 && form.password.length > 3) {
 
-  //     await fetch('http://localhost:3000/', {
-  //   method: "DELETE",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify({id:form.id })
-  // })
-  //       setpasswordArray([...passwordArray, { ...form, id: uuidv4() }])
-  //       await fetch("http://localhost:3000",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...form,id:uuidv4()})})
-  //       // localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
-  //       // console.log(passwordArray);
-
-  //       setForm({ site: "", userName: "", password: "" })
-  //       toast('Saved succeessfully', {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: false,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "dark",
-  //       });
-  //     }
-  //     else {
-  //       toast('Error:Password not saved')
-  //     }
-
-  //   }
 
   const savePassword = async () => {
    if (form.site.length > 3 && form.userName.length > 3 && form.password.length > 3){
-    await fetch('http://localhost:3000/', {
-      method: "DELETE", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: form.id })
-    })
+
     const newId = form.id || uuidv4();
     const newEntity = { ...form, id: newId }
-    setpasswordArray([...passwordArray, newEntity])
-    await fetch("http://localhost:3000", {
-      method: "POST", headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newEntity)
-    })
+    if (form.id){
+      await apiDeletePassword(form.id);
+    }
+await addPassword(newEntity);  
+setpasswordArray([...passwordArray,newEntity])
     setForm({ site: "", userName: "", password: "" })
-    toast('Saved succeessfully', {
+    toast('Saved successfully', {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -118,13 +85,8 @@ const deletePassword = async (id) => {
   // console.log("Deleting password with id: ", id);
   let c = confirm("Do you want to delete this password?");
   if (c) {
-    setpasswordArray(passwordArray.filter(item => item.id !== id))
-    // localStorage.setItem("passwords:", JSON.stringify(passwordArray.filter(item => item.id !== id)))
-    await fetch('http://localhost:3000/', {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id })
-    })
+   await apiDeletePassword(id);
+   setpasswordArray(passwordArray.filter(item=>item.id!==id));
 
   }
 
@@ -270,8 +232,10 @@ return (
                           </div>
                         </td>
                         <td className='px-4 py-3 align-middle'>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 ">
                             <span className='truncate max-w-[120px] sm:max-w-[180px]'>{"*".repeat(item.password.length)}</span>
+
+
                             <button className='ml-1 text-green-700 hover:text-green-900 focus:outline-none' title='Copy Password' onClick={() => { copyText(item.password) }}>
                               <i className="fa-solid fa-copy"></i>
                             </button>
@@ -317,7 +281,10 @@ return (
                     <div className="flex justify-between items-center">
                       <span className="font-semibold text-green-800">Password:</span>
                       <div className="flex items-center gap-2">
-                        <span className='truncate max-w-[120px]'>{item.password}</span>
+                        {/* <span className='truncate max-w-[120px]'>{item.password}</span> */}
+                        <span className='truncate max-w-[120px]'>{'*'.repeat(item.password.length)}</span>
+
+                        
                         <button className='ml-1 text-green-700 hover:text-green-900 focus:outline-none' title='Copy Password' onClick={() => { copyText(item.password) }}>
                           <i className="fa-solid fa-copy"></i>
                         </button>

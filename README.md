@@ -1,26 +1,30 @@
-# password-manager-frontend
-A modern and responsive React + Vite frontend for a secure Password Manager app. Built with Tailwind CSS and integrated with a Node.js backend and MongoDB.
+echo "# Password Manager Backend
 
-🔐 Password Manager Frontend (React + Vite)
+This is the backend for the Password Manager app built with Node.js, Express, and MongoDB Atlas.
 
-This is the frontend part of a full-stack Password Manager application. Developed using React and Vite for lightning-fast performance and modular architecture.
+## Features
+- RESTful API for saving, retrieving, and deleting passwords
+- MongoDB Atlas integration
+- Environment variable support
+- Deployment-ready for Render
 
-🚀 Features:
-- Fully responsive UI using Tailwind CSS
-- Add, view, and delete saved passwords
-- Integrated with secure backend APIs via Axios
-- Toast notifications for better UX (React Toastify)
-- Environment-based API integration (via VITE_API_URL)
-- Deployed on Vercel for production use
+## API Routes
+- GET / : Get all passwords
+- POST / : Add a new password
+- DELETE / : Delete password by id
 
-🛠 Tech Stack:
-- React 19 (Vite)
-- Tailwind CSS
-- Axios
-- React Toastify
-- Vercel (deployment)
+## Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- dotenv
+- cors
 
-🔗 Live Demo: https://your-vercel-app.vercel.app  
-🔗 Backend Repo: https://github.com/your-username/password-manager-backend
+## Environment Variables (.env)
+MONGO_URI=your-mongo-uri
+PORT=3000
 
-🧠 Created by: Sujeet Kumar
+## Author
+Sujeet Kumar
+
+" > README.md
